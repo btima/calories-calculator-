@@ -12,11 +12,25 @@
             padding: 20px;
         }
         select, input, button {
+            width: 100%;
             margin: 10px 0;
-            padding: 5px;
+            padding: 10px;
+            box-sizing: border-box;
         }
         #produits {
             margin-top: 20px;
+        }
+        .quantity-container {
+            display: flex;
+            align-items: center;
+        }
+        #quantity {
+            flex-grow: 1;
+            margin-right: 10px;
+        }
+        #unite {
+            width: auto;
+            padding: 10px;
         }
     </style>
 </head>
@@ -27,7 +41,9 @@
             <option value="">Choisir une catégorie</option>
             <option value="fruits">Fruits</option>
             <option value="legumes">Légumes</option>
-            <option value="viandes">Viandes</option>
+            <option value="l7am_7mar">Viande rouge</option>
+            <option value="l7am_byad">Viande blanche</option>
+            <option value="l7out">poisson</option>
             <option value="produits_laitiers">Produits Laitiers</option>
             <option value="cereales">Céréales et Pain</option>
             <option value="boissons">Boissons</option>
@@ -35,8 +51,10 @@
         <select id="produitSelect">
             <option value="">Choisir un produit</option>
         </select>
-        <input type="number" id="quantity" placeholder="Quantité" min="1">
-        <span id="unite">g</span>
+        <div class="quantity-container">
+            <input type="number" id="quantity" placeholder="Quantité" min="1">
+            <span id="unite">g</span>
+        </div>
         <button onclick="ajouterProduit()">Ajouter Produit</button>
     </div>
     <div id="produits"></div>
@@ -47,12 +65,19 @@
             fruits: [
                 {nom: "Teffaha", calories: 52, unite: "g"},
                 {nom: "Banana", calories: 89, unite: "g"},
-                {nom: "Brtqal", calories: 47, unite: "g"},
+                {nom: "Borto9al", calories: 47, unite: "g"},
                 {nom: "3nab", calories: 67, unite: "g"},
                 {nom: "Fraise", calories: 32, unite: "g"},
                 {nom: "Dlla7", calories: 30, unite: "g"},
                 {nom: "Kiwi", calories: 61, unite: "g"},
-                {nom: "Manga", calories: 60, unite: "g"}
+                {nom: "Manga", calories: 60, unite: "g"},
+                {nom: "Ananas", calories: 50, unite: "g"},
+                {nom: "Avoca", calories: 160, unite: "g"},
+                {nom: "Tut", calories: 43, unite: "g"},
+                {nom: "Rummane", calories: 83, unite: "g"},
+                {nom: "Barkuk", calories: 46, unite: "g"},
+                {nom: "Meshmash", calories: 48, unite: "g"},
+                {nom: "Tin", calories: 74, unite: "g"}
             ],
             legumes: [
                 {nom: "Khiyar", calories: 15, unite: "g"},
@@ -62,17 +87,55 @@
                 {nom: "Jlbana", calories: 81, unite: "g"},
                 {nom: "Khizo", calories: 41, unite: "g"},
                 {nom: "Lift", calories: 28, unite: "g"},
-                {nom: "Badinjan", calories: 25, unite: "g"}
+                {nom: "Badinjan", calories: 25, unite: "g"},
+                {nom: "Flflat khdart", calories: 20, unite: "g"},
+                {nom: "Flflat 7mart", calories: 31, unite: "g"},
+                {nom: "Krafss", calories: 16, unite: "g"},
+                {nom: "Lft", calories: 28, unite: "g"},
+                {nom: "Bsla", calories: 40, unite: "g"},
+                {nom: "Lfjl", calories: 16, unite: "g"},
+                {nom: "Gar3a khadra", calories: 25, unite: "g"}
             ],
-            viandes: [
-                {nom: "Djaj mchoui", calories: 165, unite: "g"},
+            l7am_7mar: [
+                {nom: "L7am bagri", calories: 250, unite: "g"},
+                {nom: "L7am ghanmi", calories: 294, unite: "g"},
+                {nom: "L7am ma3zi", calories: 143, unite: "g"},
                 {nom: "Kafta", calories: 292, unite: "g"},
-                {nom: "L7m 7louf", calories: 143, unite: "g"},
+                {nom: "Steak ", calories: 230, unite: "g"},
+                {nom: "L7am ghzal", calories: 158, unite: "g"},
+                {nom: "L7am jmal", calories: 159, unite: "g"},
+                {nom: "Cordon bleu", calories: 280, unite: "g"},
+                {nom: "Qatban", calories: 225, unite: "g"},
+                {nom: "Kebda", calories: 165, unite: "g"}
+            ],
+            l7am_byad: [
+                {nom: "Sdar djaj (bla jeld)", calories: 165, unite: "g"},
+                {nom: "Fkhad djaj (bla jeld)", calories: 174, unite: "g"},
+                {nom: "Djaj kammel (bla jeld)", calories: 143, unite: "g"},
+                {nom: "Dinde (sdar)", calories: 104, unite: "g"},
+                {nom: "L7am 7mam", calories: 294, unite: "g"},
+                {nom: "Djaj m7mmar (bla jeld)", calories: 190, unite: "g"},
+                {nom: "Djaj mchermmel", calories: 200, unite: "g"},
+                {nom: "Djaj beldi", calories: 167, unite: "g"},
+                {nom: "Jna7 djaj", calories: 130, unite: "g"},
+                {nom: "Dinde m7amra", calories: 170, unite: "g"}
+            ],
+            l7out: [
                 {nom: "7out", calories: 206, unite: "g"},
                 {nom: "Toun", calories: 132, unite: "g"},
                 {nom: "Saumon", calories: 208, unite: "g"},
-                {nom: "L7m bgar", calories: 250, unite: "g"},
-                {nom: "Dinde", calories: 104, unite: "g"}
+                {nom: "Sardine", calories: 208, unite: "g"},
+                {nom: "Crevette (moyenne)", calories: 99, unite: "g"},
+                {nom: "Crevette royale", calories: 84, unite: "g"},
+                {nom: "Crevette grise", calories: 90, unite: "g"},
+                {nom: "Rotal (pieuvre)", calories: 82, unite: "g"},
+                {nom: "Sipya (seiche)", calories: 79, unite: "g"},
+                {nom: "Calmar", calories: 92, unite: "g"},
+                {nom: "Merlan", calories: 90, unite: "g"},
+                {nom: "Sole", calories: 86, unite: "g"},
+                {nom: "Truite", calories: 140, unite: "g"},
+                {nom: "Anchois", calories: 131, unite: "g"},
+                {nom: "Dorade", calories: 100, unite: "g"}
             ],
             produits_laitiers: [
                 {nom: "Yogourt (0% matières grasses)", calories: 43, unite: "g"},
@@ -84,16 +147,7 @@
                 {nom: "Fromage frais (20% MG)", calories: 235, unite: "g"},
                 {nom: "Jben", calories: 310, unite: "g"},
                 {nom: "Camembert (45% MG)", calories: 300, unite: "g"},
-                {nom: "Brie (60% MG)", calories: 334, unite: "g"},
-                {nom: "Parmesan", calories: 431, unite: "g"},
-                {nom: "Mozzarella", calories: 280, unite: "g"},
-                {nom: "Fromage bleu", calories: 353, unite: "g"},
-                {nom: "Ricotta", calories: 174, unite: "g"},
-                {nom: "7lib (écrémé)", calories: 35, unite: "ml"},
-                {nom: "7lib (demi-écrémé)", calories: 47, unite: "ml"},
-                {nom: "7lib (entier)", calories: 64, unite: "ml"},
-                {nom: "Lben", calories: 40, unite: "ml"},
-                {nom: "Zbda", calories: 717, unite: "g"}
+                {nom: "Brie (60% MG)", calories: 334, unite: "g"}
             ],
             cereales: [
                 {nom: "Khobz blanc", calories: 265, unite: "g"},
@@ -105,12 +159,7 @@
                 {nom: "Roz", calories: 130, unite: "g"},
                 {nom: "Corn Flakes", calories: 357, unite: "g"},
                 {nom: "Pasta", calories: 131, unite: "g"},
-                {nom: "Msamn", calories: 318, unite: "g"},
-                {nom: "Batbout", calories: 272, unite: "g"},
-                {nom: "Chعir", calories: 354, unite: "g"},
-                {nom: "Couscous", calories: 112, unite: "g"},
-                {nom: "7rcha", calories: 274, unite: "g"},
-                {nom: "Baghrir", calories: 263, unite: "g"}
+                {nom: "Msamn", calories: 318, unite: "g"}
             ],
             boissons: [
                 {nom: "3asir brtqal", calories: 45, unite: "ml"},
@@ -120,7 +169,12 @@
                 {nom: "Atay", calories: 1, unite: "ml"},
                 {nom: "7lib d soja", calories: 33, unite: "ml"},
                 {nom: "3asir teffah", calories: 46, unite: "ml"},
-                {nom: "Lmounade", calories: 40, unite: "ml"}
+                {nom: "Lmounade", calories: 40, unite: "ml"},
+                {nom: "3asir ananas", calories: 53, unite: "ml"},
+                {nom: "3asir rummane", calories: 54, unite: "ml"},
+                {nom: "3asir mix", calories: 50, unite: "ml"},
+                {nom: "3asir banana", calories: 60, unite: "ml"},
+                {nom: "Eau gazeuse", calories: 0, unite: "ml"}
             ]
         };
 
