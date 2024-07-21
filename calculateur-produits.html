@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculateur de Calories</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        select, input, button {
+            margin: 10px 0;
+            padding: 5px;
+        }
+        #produits {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Calculateur de Calories</h1>
+    <div>
+        <select id="categorieSelect" onchange="updateProduits()">
+            <option value="">Choisir une catégorie</option>
+            <option value="fruits">Fruits</option>
+            <option value="legumes">Légumes</option>
+            <option value="viandes">Viandes</option>
+            <option value="produits_laitiers">Produits Laitiers</option>
+            <option value="cereales">Céréales et Pain</option>
+            <option value="boissons">Boissons</option>
+        </select>
+        <select id="produitSelect">
+            <option value="">Choisir un produit</option>
+        </select>
+        <input type="number" id="quantity" placeholder="Quantité" min="1">
+        <span id="unite">g</span>
+        <button onclick="ajouterProduit()">Ajouter Produit</button>
+    </div>
+    <div id="produits"></div>
+    <h2>Total des Calories: <span id="total">0</span></h2>
+
+    <script>
+        const produitsParCategorie = {
+            fruits: [
+                {nom: "Teffaha", calories: 52, unite: "g"},
+                {nom: "Banana", calories: 89, unite: "g"},
+                {nom: "Brtqal", calories: 47, unite: "g"},
+                {nom: "3nab", calories: 67, unite: "g"},
+                {nom: "Fraise", calories: 32, unite: "g"},
+                {nom: "Dlla7", calories: 30, unite: "g"},
+                {nom: "Kiwi", calories: 61, unite: "g"},
+                {nom: "Manga", calories: 60, unite: "g"}
+            ],
+            legumes: [
+                {nom: "Khiyar", calories: 15, unite: "g"},
+                {nom: "Maticha", calories: 18, unite: "g"},
+                {nom: "Khrchof", calories: 47, unite: "g"},
+                {nom: "Btata", calories: 77, unite: "g"},
+                {nom: "Jlbana", calories: 81, unite: "g"},
+                {nom: "Khizo", calories: 41, unite: "g"},
+                {nom: "Lift", calories: 28, unite: "g"},
+                {nom: "Badinjan", calories: 25, unite: "g"}
+            ],
+            viandes: [
+                {nom: "Djaj mchoui", calories: 165, unite: "g"},
+                {nom: "Kafta", calories: 292, unite: "g"},
+                {nom: "L7m 7louf", calories: 143, unite: "g"},
+                {nom: "7out", calories: 206, unite: "g"},
+                {nom: "Toun", calories: 132, unite: "g"},
+                {nom: "Saumon", calories: 208, unite: "g"},
+                {nom: "L7m bgar", calories: 250, unite: "g"},
+                {nom: "Dinde", calories: 104, unite: "g"}
+            ],
+            produits_laitiers: [
+                {nom: "Yogourt (0% matières grasses)", calories: 43, unite: "g"},
+                {nom: "Yogourt (entier)", calories: 61, unite: "g"},
+                {nom: "Bayda", calories: 155, unite: "pièce"},
+                {nom: "Fromage Edam (30% MG)", calories: 357, unite: "g"},
+                {nom: "Fromage Gouda (48% MG)", calories: 356, unite: "g"},
+                {nom: "Fromage frais (0% MG)", calories: 72, unite: "g"},
+                {nom: "Fromage frais (20% MG)", calories: 235, unite: "g"},
+                {nom: "Jben", calories: 310, unite: "g"},
+                {nom: "Camembert (45% MG)", calories: 300, unite: "g"},
+                {nom: "Brie (60% MG)", calories: 334, unite: "g"},
+                {nom: "Parmesan", calories: 431, unite: "g"},
+                {nom: "Mozzarella", calories: 280, unite: "g"},
+                {nom: "Fromage bleu", calories: 353, unite: "g"},
+                {nom: "Ricotta", calories: 174, unite: "g"},
+                {nom: "7lib (écrémé)", calories: 35, unite: "ml"},
+                {nom: "7lib (demi-écrémé)", calories: 47, unite: "ml"},
+                {nom: "7lib (entier)", calories: 64, unite: "ml"},
+                {nom: "Lben", calories: 40, unite: "ml"},
+                {nom: "Zbda", calories: 717, unite: "g"}
+            ],
+            cereales: [
+                {nom: "Khobz blanc", calories: 265, unite: "g"},
+                {nom: "Khobz complet", calories: 247, unite: "g"},
+                {nom: "Khobz d ch3ir", calories: 230, unite: "g"},
+                {nom: "Khobz d noix", calories: 310, unite: "g"},
+                {nom: "Khobz sans gluten", calories: 267, unite: "g"},
+                {nom: "Baguette", calories: 275, unite: "g"},
+                {nom: "Roz", calories: 130, unite: "g"},
+                {nom: "Corn Flakes", calories: 357, unite: "g"},
+                {nom: "Pasta", calories: 131, unite: "g"},
+                {nom: "Msamn", calories: 318, unite: "g"},
+                {nom: "Batbout", calories: 272, unite: "g"},
+                {nom: "Chعir", calories: 354, unite: "g"},
+                {nom: "Couscous", calories: 112, unite: "g"},
+                {nom: "7rcha", calories: 274, unite: "g"},
+                {nom: "Baghrir", calories: 263, unite: "g"}
+            ],
+            boissons: [
+                {nom: "3asir brtqal", calories: 45, unite: "ml"},
+                {nom: "Coca Cola", calories: 42, unite: "ml"},
+                {nom: "Café (bla sokkar)", calories: 2, unite: "ml"},
+                {nom: "Zit zitoun", calories: 884, unite: "ml"},
+                {nom: "Atay", calories: 1, unite: "ml"},
+                {nom: "7lib d soja", calories: 33, unite: "ml"},
+                {nom: "3asir teffah", calories: 46, unite: "ml"},
+                {nom: "Lmounade", calories: 40, unite: "ml"}
+            ]
+        };
+
+        let totalCalories = 0;
+        let compteurProduits = 0;
+
+        function updateProduits() {
+            let categorie = document.getElementById('categorieSelect').value;
+            let produitSelect = document.getElementById('produitSelect');
+            produitSelect.innerHTML = '<option value="">Choisir un produit</option>';
+            
+            if (categorie) {
+                produitsParCategorie[categorie].forEach(produit => {
+                    let option = document.createElement('option');
+                    option.value = JSON.stringify(produit);
+                    option.textContent = `${produit.nom} (${produit.calories} calories/100${produit.unite})`;
+                    produitSelect.appendChild(option);
+                });
+            }
+        }
+
+        function ajouterProduit() {
+            let select = document.getElementById('produitSelect');
+            let produitInfo = JSON.parse(select.value);
+            let quantity = parseFloat(document.getElementById('quantity').value);
+            
+            if (!produitInfo || isNaN(quantity) || quantity <= 0) {
+                alert('Veuillez choisir un produit et entrer une quantité valide');
+                return;
+            }
+            
+            let calories = Math.round((produitInfo.calories * quantity) / 100);
+            if (produitInfo.unite === "pièce") {
+                calories = Math.round(produitInfo.calories * quantity);
+            }
+            
+            compteurProduits++;
+            totalCalories += calories;
+            
+            let produitsDiv = document.getElementById('produits');
+            produitsDiv.innerHTML += `<p>${produitInfo.nom} - Quantité: ${quantity}${produitInfo.unite} - Calories: ${calories}</p>`;
+            
+            document.getElementById('total').textContent = totalCalories;
+            document.getElementById('categorieSelect').selectedIndex = 0;
+            produitSelect.innerHTML = '<option value="">Choisir un produit</option>';
+            document.getElementById('quantity').value = '';
+            document.getElementById('unite').textContent = 'g';
+        }
+
+        document.getElementById('produitSelect').addEventListener('change', function() {
+            let produitInfo = JSON.parse(this.value);
+            if (produitInfo) {
+                document.getElementById('unite').textContent = produitInfo.unite;
+            }
+        });
+    </script>
+</body>
+</html>
