@@ -39,6 +39,7 @@
     <div>
         <select id="categorieSelect" onchange="updateProduits()">
             <option value="">Choisir une catégorie</option>
+            <option value="maghreb">Cuisine Marocaine</option>
             <option value="fruits">Fruits</option>
             <option value="legumes">Légumes</option>
             <option value="l7am_7mar">Viande rouge</option>
@@ -66,6 +67,33 @@
 
     <script>
         const produitsParCategorie = {
+            maghreb: [
+                {nom: "Tajine de poulet aux olives", calories: 450, unite: "portion"},
+                {nom: "Tajine de bœuf aux pruneaux", calories: 500, unite: "portion"},
+                {nom: "Couscous aux sept légumes", calories: 600, unite: "portion"},
+                {nom: "Couscous au poulet", calories: 650, unite: "portion"},
+                {nom: "Pastilla au poulet", calories: 700, unite: "portion"},
+                {nom: "Pastilla aux fruits de mer", calories: 550, unite: "portion"},
+                {nom: "Harira", calories: 250, unite: "portion"},
+                {nom: "Rfissa", calories: 550, unite: "portion"},
+                {nom: "Msemen", calories: 250, unite: "pièce"},
+                {nom: "Baghrir", calories: 150, unite: "pièce"},
+                {nom: "Chebakia", calories: 150, unite: "pièce"},
+                {nom: "Sellou", calories: 200, unite: "portion"},
+                {nom: "Briouates aux amandes", calories: 180, unite: "pièce"},
+                {nom: "Kefta grillée", calories: 300, unite: "portion"},
+                {nom: "Sardines grillées", calories: 200, unite: "portion"},
+                {nom: "Zaalouk", calories: 100, unite: "portion"},
+                {nom: "Taktouka", calories: 80, unite: "portion"},
+                {nom: "Salade marocaine", calories: 120, unite: "portion"},
+                {nom: "Bissara", calories: 200, unite: "portion"},
+                {nom: "Thé à la menthe", calories: 50, unite: "verre"},
+                {nom: "Jus d'orange frais", calories: 120, unite: "verre"},
+                {nom: "Tanjia", calories: 600, unite: "portion"},
+                {nom: "Mechoui", calories: 500, unite: "portion"},
+                {nom: "Seffa", calories: 450, unite: "portion"},
+                {nom: "Batbout", calories: 200, unite: "pièce"}
+            ],
             fruits: [
                 {nom: "Teffaha", calories: 52, unite: "g"},
                 {nom: "Banana", calories: 89, unite: "g"},
@@ -81,7 +109,7 @@
                 {nom: "Rummane", calories: 83, unite: "g"},
                 {nom: "Barkuk", calories: 46, unite: "g"},
                 {nom: "Meshmash", calories: 48, unite: "g"},
-                {nom: "Tin", calories: 74, unite: "g"}
+                {nom: "Karmous", calories: 74, unite: "g"}
             ],
             legumes: [
                 {nom: "Khiyar", calories: 15, unite: "g"},
@@ -183,67 +211,323 @@
                 {nom: "Eau gazeuse", calories: 0, unite: "ml"}
             ],
             starbucks: [
+                // Café chaud
+                {nom: "Caffè Latte (Tall)", calories: 150, unite: "pièce"},
                 {nom: "Caffè Latte (Grande)", calories: 190, unite: "pièce"},
+                {nom: "Caffè Latte (Venti)", calories: 240, unite: "pièce"},
+                {nom: "Cappuccino (Tall)", calories: 120, unite: "pièce"},
                 {nom: "Cappuccino (Grande)", calories: 140, unite: "pièce"},
-                {nom: "Caramel Macchiato (Grande)", calories: 250, unite: "pièce"},
-                {nom: "Caffè Mocha (Grande)", calories: 370, unite: "pièce"},
-                {nom: "Frappuccino Caramel (Grande)", calories: 420, unite: "pièce"},
-                {nom: "Chai Tea Latte (Grande)", calories: 240, unite: "pièce"},
-                {nom: "Espresso", calories: 10, unite: "pièce"},
-                {nom: "Iced Coffee (Grande)", calories: 80, unite: "pièce"},
-                {nom: "Chocolate Chip Cookie", calories: 360, unite: "pièce"},
-                {nom: "Croissant", calories: 260, unite: "pièce"},
+                {nom: "Cappuccino (Venti)", calories: 180, unite: "pièce"},
+                {nom: "Americano (Tall)", calories: 10, unite: "pièce"},
                 {nom: "Americano (Grande)", calories: 15, unite: "pièce"},
+                {nom: "Americano (Venti)", calories: 20, unite: "pièce"},
+                {nom: "Espresso", calories: 10, unite: "pièce"},
+                {nom: "Espresso Macchiato", calories: 15, unite: "pièce"},
+                {nom: "Flat White", calories: 170, unite: "pièce"},
+                {nom: "Caffè Mocha (Tall)", calories: 290, unite: "pièce"},
+                {nom: "Caffè Mocha (Grande)", calories: 370, unite: "pièce"},
+                {nom: "Caffè Mocha (Venti)", calories: 450, unite: "pièce"},
+                {nom: "White Chocolate Mocha (Tall)", calories: 350, unite: "pièce"},
                 {nom: "White Chocolate Mocha (Grande)", calories: 430, unite: "pièce"},
-                {nom: "Flat White", calories: 220, unite: "pièce"},
-                {nom: "Iced Green Tea Latte (Grande)", calories: 240, unite: "pièce"},
-                {nom: "Vanilla Sweet Cream Cold Brew (Grande)", calories: 110, unite: "pièce"}
+                {nom: "White Chocolate Mocha (Venti)", calories: 530, unite: "pièce"},
+                {nom: "Caramel Macchiato (Tall)", calories: 250, unite: "pièce"},
+                {nom: "Caramel Macchiato (Grande)", calories: 310, unite: "pièce"},
+                {nom: "Caramel Macchiato (Venti)", calories: 380, unite: "pièce"},
+
+                // Café glacé
+                {nom: "Iced Caffè Latte (Tall)", calories: 130, unite: "pièce"},
+                {nom: "Iced Caffè Latte (Grande)", calories: 170, unite: "pièce"},
+                {nom: "Iced Caffè Latte (Venti)", calories: 210, unite: "pièce"},
+                {nom: "Iced Cappuccino (Tall)", calories: 110, unite: "pièce"},
+                {nom: "Iced Cappuccino (Grande)", calories: 140, unite: "pièce"},
+                {nom: "Iced Cappuccino (Venti)", calories: 170, unite: "pièce"},
+                {nom: "Iced Americano (Tall)", calories: 10, unite: "pièce"},
+                {nom: "Iced Americano (Grande)", calories: 15, unite: "pièce"},
+                {nom: "Iced Americano (Venti)", calories: 20, unite: "pièce"},
+                {nom: "Cold Brew (Tall)", calories: 5, unite: "pièce"},
+                {nom: "Cold Brew (Grande)", calories: 5, unite: "pièce"},
+                {nom: "Cold Brew (Venti)", calories: 5, unite: "pièce"},
+                {nom: "Nitro Cold Brew (Tall)", calories: 5, unite: "pièce"},
+                {nom: "Nitro Cold Brew (Grande)", calories: 5, unite: "pièce"},
+
+                // Frappuccinos
+                {nom: "Frappuccino Café (Tall)", calories: 240, unite: "pièce"},
+                {nom: "Frappuccino Café (Grande)", calories: 350, unite: "pièce"},
+                {nom: "Frappuccino Café (Venti)", calories: 410, unite: "pièce"},
+                {nom: "Frappuccino Caramel (Tall)", calories: 330, unite: "pièce"},
+                {nom: "Frappuccino Caramel (Grande)", calories: 420, unite: "pièce"},
+                {nom: "Frappuccino Caramel (Venti)", calories: 520, unite: "pièce"},
+                {nom: "Frappuccino Mocha (Tall)", calories: 320, unite: "pièce"},
+                {nom: "Frappuccino Mocha (Grande)", calories: 400, unite: "pièce"},
+                {nom: "Frappuccino Mocha (Venti)", calories: 500, unite: "pièce"},
+
+                // Thé
+                {nom: "Chai Tea Latte (Tall)", calories: 240, unite: "pièce"},
+                {nom: "Chai Tea Latte (Grande)", calories: 310, unite: "pièce"},
+                {nom: "Chai Tea Latte (Venti)", calories: 370, unite: "pièce"},
+                {nom: "Green Tea Latte (Tall)", calories: 240, unite: "pièce"},
+                {nom: "Green Tea Latte (Grande)", calories: 320, unite: "pièce"},
+                {nom: "Green Tea Latte (Venti)", calories: 400, unite: "pièce"},
+                {nom: "Earl Grey Tea (Tall)", calories: 0, unite: "pièce"},
+                {nom: "Earl Grey Tea (Grande)", calories: 0, unite: "pièce"},
+                {nom: "Earl Grey Tea (Venti)", calories: 0, unite: "pièce"},
+
+                // Boissons chaudes
+                {nom: "Hot Chocolate (Tall)", calories: 320, unite: "pièce"},
+                {nom: "Hot Chocolate (Grande)", calories: 410, unite: "pièce"},
+                {nom: "Hot Chocolate (Venti)", calories: 500, unite: "pièce"},
+                {nom: "Steamed Apple Juice (Tall)", calories: 170, unite: "pièce"},
+                {nom: "Steamed Apple Juice (Grande)", calories: 220, unite: "pièce"},
+                {nom: "Steamed Apple Juice (Venti)", calories: 280, unite: "pièce"},
+
+                // Nourriture
+                {nom: "Classic Croissant", calories: 260, unite: "pièce"},
+                {nom: "Chocolate Croissant", calories: 340, unite: "pièce"},
+                {nom: "Blueberry Muffin", calories: 380, unite: "pièce"},
+                {nom: "Chocolate Chip Cookie", calories: 360, unite: "pièce"},
+                {nom: "Banana Bread", calories: 420, unite: "pièce"},
+                {nom: "Plain Bagel", calories: 280, unite: "pièce"},
+                {nom: "Cheese Danish", calories: 320, unite: "pièce"},
+                {nom: "Oatmeal", calories: 160, unite: "pièce"},
+                {nom: "Egg & Cheese Protein Box", calories: 470, unite: "pièce"},
+                {nom: "Chicken & Hummus Protein Box", calories: 560, unite: "pièce"},
+                {nom: "Spinach Feta Wrap", calories: 290, unite: "pièce"},
+                {nom: "Bacon Gouda Breakfast Sandwich", calories: 360, unite: "pièce"},
+                {nom: "Double-Smoked Bacon Sandwich", calories: 500, unite: "pièce"},
+                {nom: "Ham & Swiss Panini", calories: 480, unite: "pièce"},
+                {nom: "Turkey Pesto Panini", calories: 550, unite: "pièce"},
+
+                // Extras
+                {nom: "Whipped Cream", calories: 80, unite: "pièce"},
+                {nom: "Caramel Syrup (1 pump)", calories: 20, unite: "pièce"},
+                {nom: "Vanilla Syrup (1 pump)", calories: 20, unite: "pièce"},
+                {nom: "Mocha Sauce (1 pump)", calories: 25, unite: "pièce"},
+                {nom: "Soy Milk (instead of 2% milk)", calories: 50, unite: "pièce"},
+                {nom: "Almond Milk (instead of 2% milk)", calories: 30, unite: "pièce"},
+                {nom: "Coconut Milk (instead of 2% milk)", calories: 40, unite: "pièce"}
             ],
             mcdonalds: [
                 {nom: "Big Mac", calories: 563, unite: "pièce"},
                 {nom: "Cheeseburger", calories: 313, unite: "pièce"},
+                {nom: "Double Cheeseburger", calories: 437, unite: "pièce"},
+                {nom: "Triple Cheeseburger", calories: 561, unite: "pièce"},
                 {nom: "McChicken", calories: 388, unite: "pièce"},
                 {nom: "Filet-O-Fish", calories: 390, unite: "pièce"},
-                {nom: "Frites (Moyenne)", calories: 337, unite: "pièce"},
-                {nom: "Nuggets (6 pièces)", calories: 259, unite: "pièce"},
-                {nom: "Coca-Cola (Moyen)", calories: 210, unite: "pièce"},
-                {nom: "McFlurry Oreo", calories: 510, unite: "pièce"},
-                {nom: "Salade Caesar au Poulet", calories: 220, unite: "pièce"},
-                {nom: "Petit Déjeuner McMuffin Egg & Cheese", calories: 295, unite: "pièce"},
-                {nom: "Double Cheeseburger", calories: 437, unite: "pièce"},
+                {nom: "Hamburger", calories: 250, unite: "pièce"},
+                {nom: "Quarter Pounder with Cheese", calories: 520, unite: "pièce"},
+                {nom: "Double Quarter Pounder with Cheese", calories: 750, unite: "pièce"},
                 {nom: "Royal Cheese", calories: 517, unite: "pièce"},
+                {nom: "Royal Deluxe", calories: 530, unite: "pièce"},
                 {nom: "McWrap Poulet Ranch", calories: 490, unite: "pièce"},
+                {nom: "McWrap Chèvre", calories: 520, unite: "pièce"},
+                {nom: "Chicken McNuggets (4 pièces)", calories: 173, unite: "pièce"},
+                {nom: "Chicken McNuggets (6 pièces)", calories: 259, unite: "pièce"},
+                {nom: "Chicken McNuggets (9 pièces)", calories: 388, unite: "pièce"},
+                {nom: "Chicken McNuggets (20 pièces)", calories: 863, unite: "pièce"},
+                {nom: "McCrispy (Classic)", calories: 470, unite: "pièce"},
+                {nom: "McCrispy (Deluxe)", calories: 540, unite: "pièce"},
+                {nom: "McFirst (Boeuf)", calories: 390, unite: "pièce"},
+                {nom: "McFirst (Poulet)", calories: 350, unite: "pièce"},
+                {nom: "Big Tasty", calories: 850, unite: "pièce"},
+                {nom: "Big Tasty Bacon", calories: 890, unite: "pièce"},
+                {nom: "Frites (Petite)", calories: 230, unite: "pièce"},
+                {nom: "Frites (Moyenne)", calories: 337, unite: "pièce"},
+                {nom: "Frites (Grande)", calories: 445, unite: "pièce"},
+                {nom: "Salade Caesar au Poulet", calories: 220, unite: "pièce"},
+                {nom: "Salade Veggie", calories: 140, unite: "pièce"},
+                {nom: "Coca-Cola (Petit)", calories: 140, unite: "pièce"},
+                {nom: "Coca-Cola (Moyen)", calories: 210, unite: "pièce"},
+                {nom: "Coca-Cola (Grand)", calories: 280, unite: "pièce"},
+                {nom: "Fanta (Petit)", calories: 150, unite: "pièce"},
+                {nom: "Fanta (Moyen)", calories: 220, unite: "pièce"},
+                {nom: "Fanta (Grand)", calories: 300, unite: "pièce"},
+                {nom: "Sprite (Petit)", calories: 140, unite: "pièce"},
+                {nom: "Sprite (Moyen)", calories: 210, unite: "pièce"},
+                {nom: "Sprite (Grand)", calories: 280, unite: "pièce"},
+                {nom: "McFlurry Oreo", calories: 510, unite: "pièce"},
+                {nom: "McFlurry M&M's", calories: 530, unite: "pièce"},
+                {nom: "McFlurry Kit Kat", calories: 520, unite: "pièce"},
                 {nom: "Sundae Chocolat", calories: 340, unite: "pièce"},
-                {nom: "Milk Shake Vanille (Moyen)", calories: 490, unite: "pièce"}
+                {nom: "Sundae Caramel", calories: 330, unite: "pièce"},
+                {nom: "Sundae Fraise", calories: 320, unite: "pièce"},
+                {nom: "Milk Shake Vanille (Petit)", calories: 350, unite: "pièce"},
+                {nom: "Milk Shake Vanille (Moyen)", calories: 490, unite: "pièce"},
+                {nom: "Milk Shake Chocolat (Petit)", calories: 360, unite: "pièce"},
+                {nom: "Milk Shake Chocolat (Moyen)", calories: 510, unite: "pièce"},
+                {nom: "Milk Shake Fraise (Petit)", calories: 350, unite: "pièce"},
+                {nom: "Milk Shake Fraise (Moyen)", calories: 490, unite: "pièce"},
+                {nom: "Apple Pie", calories: 230, unite: "pièce"},
+                {nom: "Donut", calories: 280, unite: "pièce"},
+                {nom: "Muffin Chocolat", calories: 430, unite: "pièce"},
+                {nom: "Petit Déjeuner McMuffin Egg & Cheese", calories: 295, unite: "pièce"},
+                {nom: "Petit Déjeuner McMuffin Sausage & Egg", calories: 480, unite: "pièce"},
+                {nom: "Petit Déjeuner Bacon & Egg", calories: 310, unite: "pièce"},
+                {nom: "Pancakes", calories: 350, unite: "pièce"},
+                {nom: "Hash Brown", calories: 150, unite: "pièce"},
+                {nom: "Café (Petit)", calories: 5, unite: "pièce"},
+                {nom: "Café (Moyen)", calories: 7, unite: "pièce"},
+                {nom: "Café (Grand)", calories: 9, unite: "pièce"},
+                {nom: "Cappuccino (Petit)", calories: 90, unite: "pièce"},
+                {nom: "Cappuccino (Moyen)", calories: 120, unite: "pièce"},
+                {nom: "Cappuccino (Grand)", calories: 160, unite: "pièce"},
+                {nom: "Jus d'Orange (Petit)", calories: 140, unite: "pièce"},
+                {nom: "Jus d'Orange (Moyen)", calories: 190, unite: "pièce"},
+                {nom: "Jus d'Orange (Grand)", calories: 250, unite: "pièce"}
             ],
             tacos_de_lyon: [
-                {nom: "Tacos M (Viande au choix)", calories: 900, unite: "pièce"},
-                {nom: "Tacos L (Viande au choix)", calories: 1200, unite: "pièce"},
-                {nom: "Tacos XL (Viande au choix)", calories: 1500, unite: "pièce"},
-                {nom: "Frites (Moyenne)", calories: 400, unite: "pièce"},
-                {nom: "Boisson gazeuse (33cl)", calories: 140, unite: "pièce"},
+                // Tacos
+                {nom: "Tacos M (1 viande)", calories: 900, unite: "pièce"},
+                {nom: "Tacos L (2 viandes)", calories: 1200, unite: "pièce"},
+                {nom: "Tacos XL (3 viandes)", calories: 1500, unite: "pièce"},
+                {nom: "Tacos XXL (4 viandes)", calories: 1800, unite: "pièce"},
+                
+                // Viandes pour tacos
+                {nom: "Supplément Viande Poulet", calories: 150, unite: "pièce"},
+                {nom: "Supplément Viande Boeuf", calories: 180, unite: "pièce"},
+                {nom: "Supplément Viande Kebab", calories: 160, unite: "pièce"},
+                {nom: "Supplément Viande Kefta", calories: 170, unite: "pièce"},
+                {nom: "Supplément Viande Cordon Bleu", calories: 200, unite: "pièce"},
+                {nom: "Supplément Viande Nuggets", calories: 140, unite: "pièce"},
+                {nom: "Supplément Viande Merguez", calories: 190, unite: "pièce"},
+                {nom: "Supplément Viande Tenders", calories: 160, unite: "pièce"},
+                
+                // Sauces
                 {nom: "Sauce Algérienne", calories: 120, unite: "pièce"},
                 {nom: "Sauce Samouraï", calories: 130, unite: "pièce"},
                 {nom: "Sauce Barbecue", calories: 100, unite: "pièce"},
+                {nom: "Sauce Ketchup", calories: 80, unite: "pièce"},
+                {nom: "Sauce Mayonnaise", calories: 150, unite: "pièce"},
+                {nom: "Sauce Blanche", calories: 140, unite: "pièce"},
+                {nom: "Sauce Biggy", calories: 130, unite: "pièce"},
+                {nom: "Sauce Curry", calories: 110, unite: "pièce"},
+                {nom: "Sauce Andalouse", calories: 125, unite: "pièce"},
+                {nom: "Sauce Harissa", calories: 70, unite: "pièce"},
+                
+                // Suppléments
                 {nom: "Supplément Fromage", calories: 100, unite: "pièce"},
-                {nom: "Supplément Viande", calories: 150, unite: "pièce"}
+                {nom: "Supplément Frites dans le tacos", calories: 100, unite: "pièce"},
+                {nom: "Supplément Oeuf", calories: 80, unite: "pièce"},
+                {nom: "Supplément Champignons", calories: 30, unite: "pièce"},
+                {nom: "Supplément Oignons", calories: 20, unite: "pièce"},
+                
+                // Frites
+                {nom: "Frites (Petite)", calories: 300, unite: "pièce"},
+                {nom: "Frites (Moyenne)", calories: 400, unite: "pièce"},
+                {nom: "Frites (Grande)", calories: 500, unite: "pièce"},
+                
+                // Boissons
+                {nom: "Boisson gazeuse (33cl)", calories: 140, unite: "pièce"},
+                {nom: "Boisson gazeuse (50cl)", calories: 210, unite: "pièce"},
+                {nom: "Eau minérale (50cl)", calories: 0, unite: "pièce"},
+                
+                // Autres plats
+                {nom: "Assiette Kebab", calories: 700, unite: "pièce"},
+                {nom: "Assiette Kefta", calories: 750, unite: "pièce"},
+                {nom: "Assiette Poulet", calories: 680, unite: "pièce"},
+                {nom: "Sandwich Kebab", calories: 550, unite: "pièce"},
+                {nom: "Sandwich Kefta", calories: 580, unite: "pièce"},
+                {nom: "Sandwich Poulet", calories: 520, unite: "pièce"},
+                
+                // Entrées et Sides
+                {nom: "Nuggets (6 pièces)", calories: 280, unite: "pièce"},
+                {nom: "Nuggets (9 pièces)", calories: 420, unite: "pièce"},
+                {nom: "Tenders (3 pièces)", calories: 250, unite: "pièce"},
+                {nom: "Tenders (5 pièces)", calories: 420, unite: "pièce"},
+                {nom: "Onion Rings (6 pièces)", calories: 320, unite: "pièce"},
+                {nom: "Mozzarella Sticks (4 pièces)", calories: 300, unite: "pièce"},
+                
+                // Desserts
+                {nom: "Tiramisu", calories: 300, unite: "pièce"},
+                {nom: "Mousse au Chocolat", calories: 250, unite: "pièce"},
+                {nom: "Brownie", calories: 350, unite: "pièce"},
+                {nom: "Cookie", calories: 200, unite: "pièce"},
+                {nom: "Glace (1 boule)", calories: 150, unite: "pièce"},
+                
+                // Menus
+                {nom: "Menu Tacos M + Frites + Boisson", calories: 1350, unite: "pièce"},
+                {nom: "Menu Tacos L + Frites + Boisson", calories: 1650, unite: "pièce"},
+                {nom: "Menu Tacos XL + Frites + Boisson", calories: 1950, unite: "pièce"},
+                {nom: "Menu Sandwich + Frites + Boisson", calories: 1000, unite: "pièce"}
             ],
             kfc: [
-                {nom: "Original Recipe Chicken (1 pièce)", calories: 290, unite: "pièce"},
+                // Poulet
+                {nom: "Original Recipe (1 pièce)", calories: 290, unite: "pièce"},
+                {nom: "Hot & Spicy (1 pièce)", calories: 310, unite: "pièce"},
+                {nom: "Extra Crispy (1 pièce)", calories: 330, unite: "pièce"},
+                {nom: "Kentucky Grilled Chicken (1 pièce)", calories: 180, unite: "pièce"},
                 {nom: "Hot Wings (3 pièces)", calories: 210, unite: "pièce"},
                 {nom: "Tenders (3 pièces)", calories: 260, unite: "pièce"},
-                {nom: "Zinger Burger", calories: 450, unite: "pièce"},
-                {nom: "Twister", calories: 480, unite: "pièce"},
-                {nom: "Frites (Moyenne)", calories: 330, unite: "pièce"},
-                {nom: "Salade Coleslaw (Petite)", calories: 160, unite: "pièce"},
-                {nom: "Biscuit", calories: 180, unite: "pièce"},
-                {nom: "Boisson gazeuse (Moyenne)", calories: 210, unite: "pièce"},
-                {nom: "Sundae Caramel", calories: 280, unite: "pièce"},
-                {nom: "Bucket 8 pièces", calories: 2320, unite: "pièce"},
-                {nom: "Double Down", calories: 540, unite: "pièce"},
                 {nom: "Popcorn Chicken (Petite)", calories: 290, unite: "pièce"},
+                {nom: "Popcorn Chicken (Moyenne)", calories: 440, unite: "pièce"},
+                {nom: "Popcorn Chicken (Grande)", calories: 620, unite: "pièce"},
+
+                // Sandwiches
+                {nom: "Zinger", calories: 450, unite: "pièce"},
+                {nom: "Zinger Maxi", calories: 650, unite: "pièce"},
+                {nom: "Tower Burger", calories: 620, unite: "pièce"},
+                {nom: "Twister", calories: 480, unite: "pièce"},
                 {nom: "Boxmaster", calories: 720, unite: "pièce"},
-                {nom: "Milkshake Vanille (Moyen)", calories: 420, unite: "pièce"}
+                {nom: "Double Down", calories: 540, unite: "pièce"},
+                {nom: "Original Recipe Burger", calories: 400, unite: "pièce"},
+                {nom: "Filet Burger", calories: 380, unite: "pièce"},
+
+                // Buckets
+                {nom: "Bucket 8 pièces", calories: 2320, unite: "pièce"},
+                {nom: "Bucket 12 pièces", calories: 3480, unite: "pièce"},
+                {nom: "Bucket 16 pièces", calories: 4640, unite: "pièce"},
+
+                // Accompagnements
+                {nom: "Frites (Petite)", calories: 230, unite: "pièce"},
+                {nom: "Frites (Moyenne)", calories: 330, unite: "pièce"},
+                {nom: "Frites (Grande)", calories: 430, unite: "pièce"},
+                {nom: "Salade Coleslaw (Petite)", calories: 160, unite: "pièce"},
+                {nom: "Salade Coleslaw (Grande)", calories: 320, unite: "pièce"},
+                {nom: "Maïs (Petit)", calories: 70, unite: "pièce"},
+                {nom: "Maïs (Grand)", calories: 140, unite: "pièce"},
+                {nom: "Mashed Potatoes & Gravy (Petit)", calories: 110, unite: "pièce"},
+                {nom: "Mashed Potatoes & Gravy (Grand)", calories: 220, unite: "pièce"},
+                {nom: "Biscuit", calories: 180, unite: "pièce"},
+
+                // Salades
+                {nom: "Caesar Salad", calories: 190, unite: "pièce"},
+                {nom: "House Salad", calories: 160, unite: "pièce"},
+                {nom: "Salade au Poulet Grillé", calories: 350, unite: "pièce"},
+
+                // Sauces
+                {nom: "Sauce BBQ", calories: 45, unite: "pièce"},
+                {nom: "Sauce Ranch", calories: 130, unite: "pièce"},
+                {nom: "Sauce Honey Mustard", calories: 90, unite: "pièce"},
+                {nom: "Sauce Buffalo", calories: 50, unite: "pièce"},
+                {nom: "Ketchup", calories: 30, unite: "pièce"},
+                {nom: "Mayonnaise", calories: 90, unite: "pièce"},
+
+                // Boissons
+                {nom: "Coca-Cola (Petit)", calories: 140, unite: "pièce"},
+                {nom: "Coca-Cola (Moyen)", calories: 210, unite: "pièce"},
+                {nom: "Coca-Cola (Grand)", calories: 280, unite: "pièce"},
+                {nom: "Sprite (Petit)", calories: 140, unite: "pièce"},
+                {nom: "Sprite (Moyen)", calories: 210, unite: "pièce"},
+                {nom: "Sprite (Grand)", calories: 280, unite: "pièce"},
+                {nom: "Fanta (Petit)", calories: 150, unite: "pièce"},
+                {nom: "Fanta (Moyen)", calories: 230, unite: "pièce"},
+                {nom: "Fanta (Grand)", calories: 300, unite: "pièce"},
+
+                // Desserts
+                {nom: "Sundae Caramel", calories: 280, unite: "pièce"},
+                {nom: "Sundae Chocolat", calories: 300, unite: "pièce"},
+                {nom: "Sundae Fraise", calories: 270, unite: "pièce"},
+                {nom: "Milkshake Vanille (Moyen)", calories: 420, unite: "pièce"},
+                {nom: "Milkshake Chocolat (Moyen)", calories: 440, unite: "pièce"},
+                {nom: "Milkshake Fraise (Moyen)", calories: 430, unite: "pièce"},
+                {nom: "Cookie", calories: 160, unite: "pièce"},
+
+                // Menus
+                {nom: "Menu Bucket 2 personnes", calories: 2200, unite: "pièce"},
+                {nom: "Menu Zinger", calories: 900, unite: "pièce"},
+                {nom: "Menu Twister", calories: 850, unite: "pièce"},
+                {nom: "Menu 3 Tenders", calories: 800, unite: "pièce"},
+                {nom: "Menu Filet Box", calories: 1100, unite: "pièce"},
+                {nom: "Menu Maxi Best Of", calories: 1300, unite: "pièce"}
             ]
         };
 
@@ -259,7 +543,12 @@
                 produitsParCategorie[categorie].forEach(produit => {
                     let option = document.createElement('option');
                     option.value = JSON.stringify(produit);
-                    option.textContent = `${produit.nom} (${produit.calories} calories/${produit.unite})`;
+                    //option.textContent = `${produit.nom} (${produit.calories} calories/100${produit.unite})`;
+                    if ( `${produit.unite}` === "pièce" || `${produit.unite}` === "portion") {
+                        option.textContent = `${produit.nom} (${produit.calories} calories/${produit.unite})`;
+                    } else {
+                        option.textContent = `${produit.nom} (${produit.calories} calories/100${produit.unite})`;
+                    }
                     produitSelect.appendChild(option);
                 });
             }
@@ -275,19 +564,22 @@
                 return;
             }
             
-            let calories = produitInfo.calories * quantity;
+            let calories = Math.round((produitInfo.calories * quantity) / 100);
+            if (produitInfo.unite === "pièce" || produitInfo.unite === "portion") {
+                calories = Math.round(produitInfo.calories * quantity);
+            }
             
             compteurProduits++;
             totalCalories += calories;
             
             let produitsDiv = document.getElementById('produits');
-            produitsDiv.innerHTML += `<p>${produitInfo.nom} - Quantité: ${quantity} - Calories: ${calories}</p>`;
+            produitsDiv.innerHTML += `<p>${produitInfo.nom} - Quantité: ${quantity}${produitInfo.unite} - Calories: ${calories}</p>`;
             
             document.getElementById('total').textContent = totalCalories;
             document.getElementById('categorieSelect').selectedIndex = 0;
             produitSelect.innerHTML = '<option value="">Choisir un produit</option>';
             document.getElementById('quantity').value = '';
-            document.getElementById('unite').textContent = 'pièce';
+            document.getElementById('unite').textContent = 'g';
         }
 
         document.getElementById('produitSelect').addEventListener('change', function() {
